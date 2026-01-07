@@ -39,8 +39,16 @@ class Video(data.Dataset):
         dataset_name = config.DATASET.DATASET
         train_set = config.DATASET.TRAINSET
         lower_bound = config.DATASET.LOWER_BOUND
-        self.dir = os.path.join(root, dataset_name, train_set)
-        assert (os.path.exists(self.dir))
+        # ===== PATCH: support Kaggle dataset layout =====
+        if dataset_name == 'avenue':
+            # Kaggle dataset layout
+            self.dir = os.path.join(root, 'training_videos')
+        else:
+            self.dir = os.path.join(root, dataset_name, train_set)
+        
+        assert os.path.exists(self.dir), f"Training dir not found: {self.dir}"
+        # ===== END PATCH =====
+
 
         videos = self._colect_filelist(self.dir)
 
@@ -96,8 +104,15 @@ class TestVideo(data.Dataset):
         root = config.DATASET.ROOT
         dataset_name = config.DATASET.DATASET
         test_set = config.DATASET.TESTSET
-        self.dir = os.path.join(root, dataset_name, test_set)
-        assert (os.path.exists(self.dir))
+        # ===== PATCH: support Kaggle dataset layout =====
+        if dataset_name == 'avenue':
+            self.dir = os.path.join(root, 'testing_videos')
+        else:
+            self.dir = os.path.join(root, dataset_name, test_set)
+        
+        assert os.path.exists(self.dir), f"Testing dir not found: {self.dir}"
+        # ===== END PATCH =====
+
 
         self.videos = self._colect_filelist(self.dir)
 
