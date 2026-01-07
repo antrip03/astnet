@@ -4,7 +4,7 @@ PRINT_FREQ: 1
 
 DATASET:
   DATASET: avenue
-  ROOT: '../../datasets'
+  ROOT: /kaggle/input/pixel-play-26/Avenue_Corrupted-20251221T112159Z-3-001/Avenue_Corrupted/Dataset
   NUM_FRAMES: 5
   FRAME_STEPS: 2
   LOWER_BOUND: 100
